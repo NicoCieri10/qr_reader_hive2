@@ -2,9 +2,7 @@ import 'package:data_persistence/data_persistence.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:qr_reader_hive2/home/home.dart';
-import 'package:qr_reader_hive2/maps/maps.dart';
-import 'package:qr_reader_hive2/providers/ui_provider.dart';
+import 'package:qr_reader_hive2/home/view/view.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -25,10 +23,6 @@ class App extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'QR Reader',
         initialRoute: 'home',
-        routes: {
-          'home': (_) => const PageHome(),
-          'maps': (_) => const MapsPage(),
-        },
         theme: ThemeData(
           colorScheme: const ColorScheme.light(
             primary: Colors.deepPurple,
@@ -38,6 +32,7 @@ class App extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
+        home: const PageHome(),
       ),
     );
   }

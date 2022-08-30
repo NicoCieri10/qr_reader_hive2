@@ -12,6 +12,7 @@ class CustomNavigatorBar extends StatelessWidget {
     return BlocBuilder<TabCubit, TabState>(
       builder: (context, state) {
         return BottomNavigationBar(
+          backgroundColor: Colors.grey.shade200,
           onTap: tabCubit.changeTab,
           currentIndex: state.index,
           elevation: 0,
