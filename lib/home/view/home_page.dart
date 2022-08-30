@@ -60,7 +60,7 @@ class _ViewHomeState extends State<ViewHome> {
             actions: [
               IconButton(
                 icon: const Icon(Icons.delete_forever),
-                onPressed: () {},
+                onPressed: () => context.read<ScansCubit>().deleteAllScans(),
               ),
             ],
           ),

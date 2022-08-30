@@ -13,6 +13,9 @@ abstract class ScansCubitBase {
 
   /// This method is used to delete a scan from the state.
   Future<void> deleteScan(ScanModel scan);
+
+  /// This method is used to delete all the scans.
+  Future<void> deleteAllScans();
 }
 
 class ScansCubit extends Cubit<ScansState> implements ScansCubitBase {
@@ -58,6 +61,18 @@ class ScansCubit extends Cubit<ScansState> implements ScansCubitBase {
       emit(
         _state.copyWith(scans: scans),
       );
+    } catch (_) {
+      emit(ScansFailure());
+    }
+  }
+
+  @override
+  Future<void> deleteAllScans() async {
+    final _state = state;
+    if (_state is! ScansSuccessful) return;
+    try {
+      await _dataPersistence.deleteAllScans();
+      getScans();
     } catch (_) {
       emit(ScansFailure());
     }
