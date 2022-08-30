@@ -3,10 +3,10 @@ part of 'scans_cubit.dart';
 abstract class ScansState extends Equatable {
   const ScansState();
 
-  bool get isInitial => ScansState is ScansInitial;
-  bool get isLoading => ScansState is ScansLoading;
-  bool get isSuccess => ScansState is ScansSuccessful;
-  bool get isFailure => ScansState is ScansFailure;
+  bool get isInitial => this is ScansInitial;
+  bool get isLoading => this is ScansLoading;
+  bool get isSuccess => this is ScansSuccessful;
+  bool get isFailure => this is ScansFailure;
 
   @override
   List<Object?> get props => [];

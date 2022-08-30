@@ -50,7 +50,8 @@ class DataPersistence {
       id: scanLength,
     );
 
-    final scans = this.scans?..add(newScan);
+    final scans = this.scans ?? []
+      ..add(newScan);
     await scansBox.put('scans', scans);
     return newScan.id;
   }

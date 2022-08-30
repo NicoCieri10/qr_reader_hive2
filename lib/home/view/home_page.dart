@@ -1,11 +1,11 @@
 import 'package:data_persistence/data_persistence.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:qr_reader_hive2/directions/directions.dart';
 import 'package:qr_reader_hive2/home/scans_cubit/scans_cubit.dart';
 import 'package:qr_reader_hive2/home/tab_cubit/tab_cubit.dart';
+import 'package:qr_reader_hive2/home/view/view.dart';
 import 'package:qr_reader_hive2/home/widgets/widgets.dart';
-import 'package:qr_reader_hive2/maps/maps.dart';
 
 class PageHome extends StatelessWidget {
   const PageHome({super.key});
@@ -39,6 +39,11 @@ class _ViewHomeState extends State<ViewHome> {
   @override
   void initState() {
     super.initState();
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: Colors.grey.shade200,
+      ),
+    );
     final cubit = context.read<ScansCubit>();
     if (cubit.state.isInitial) {
       cubit.getScans();
@@ -69,13 +74,13 @@ class _ViewHomeState extends State<ViewHome> {
                 return const Center(
                   child: CircularProgressIndicator(),
                 );
-              } else if (scansState.isSuccess) {
+              } else if (scansState is ScansSuccessful) {
                 switch (tabState.index) {
                   case 1:
-                    return const DirectionsPage();
+                    return QRPage.directions(scansState.scans.httpScans);
 
                   default:
-                    return const MapsPage();
+                    return QRPage.maps(scansState.scans.geoScans);
                 }
               }
 

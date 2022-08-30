@@ -18,6 +18,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
+  flutter_slidable: ^2.0.0
+  google_maps_flutter: ^2.1.12
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   intl: ^0.17.0
