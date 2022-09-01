@@ -8,6 +8,7 @@ environment:
   flutter: 3.0.4
 
 dependencies:
+  appsize: ^1.2.0
   bloc: ^8.0.3
   data_persistence:
     path: packages/data_persistence

@@ -55,7 +55,7 @@ class _ViewMapState extends State<ViewMap> {
           //     IconButton(
           //       icon: Icon(Icons.location_disabled),
           //       onPressed: () async {
-          //         final GoogleMapController controller = await _controller.future;
+          //    final GoogleMapController controller = await _controller.future;
           //         controller.animateCamera(
           //           CameraUpdate.newCameraPosition(
           //             CameraPosition(

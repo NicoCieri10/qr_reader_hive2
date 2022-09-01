@@ -1,7 +1,6 @@
 import 'package:data_persistence/data_persistence.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:qr_reader_hive2/home/scans_cubit/scans_cubit.dart';
 import 'package:qr_reader_hive2/map/map.dart';
 
@@ -53,25 +52,41 @@ class QRPage extends StatelessWidget {
       itemCount: _scans.length,
       itemBuilder: (_, index) {
         final scan = _scans[index];
-
-        final actionList = ActionPane(
-          motion: const ScrollMotion(),
-          children: [
-            SlidableAction(
-              onPressed: (_) => context.read<ScansCubit>().deleteScan(scan),
-              backgroundColor: const Color(0xFFFE4A49),
-              foregroundColor: Colors.white,
-              icon: Icons.delete,
-              label: 'Borrar',
+        return Dismissible(
+          key: UniqueKey(),
+          background: ColoredBox(
+            color: const Color(0xFFFE4A49),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Icon(
+                      Icons.delete,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Icon(
+                      Icons.delete,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        );
-
-        return Slidable(
-          endActionPane: actionList,
-          startActionPane: actionList,
+          ),
+          onDismissed: (DismissDirection direction) {
+            context.read<ScansCubit>().deleteScan(scan);
+          },
           child: ListTile(
-            leading: Icon(Icons.map, color: Theme.of(context).primaryColor),
+            leading: Icon(
+              scansType == ScanModelType.geo
+                  ? Icons.map
+                  : Icons.compass_calibration,
+              color: Theme.of(context).primaryColor,
+            ),
             title: Text(scan.value),
             subtitle: Text('ID: ${scan.id}'),
             onTap: () {
