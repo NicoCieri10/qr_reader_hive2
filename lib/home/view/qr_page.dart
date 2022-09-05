@@ -2,7 +2,7 @@ import 'package:data_persistence/data_persistence.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_reader_hive2/home/scans_cubit/scans_cubit.dart';
-import 'package:qr_reader_hive2/map/map.dart';
+import 'package:qr_reader_hive2/utils/utils.dart';
 
 class QRPage extends StatelessWidget {
   const QRPage({
@@ -89,15 +89,7 @@ class QRPage extends StatelessWidget {
             ),
             title: Text(scan.value),
             subtitle: Text('ID: ${scan.id}'),
-            onTap: () {
-              if (scansType == ScanModelType.geo) {
-                Navigator.of(context).push<void>(
-                  MaterialPageRoute(
-                    builder: (_) => PageMap(scan),
-                  ),
-                );
-              } else {}
-            },
+            onTap: () => launchURL(context, scan),
           ),
         );
       },
