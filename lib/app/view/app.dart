@@ -1,10 +1,12 @@
 import 'package:data_persistence/data_persistence.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_reader_hive2/home/view/view.dart';
+import 'package:qr_reader_hive2/map/map.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({
     super.key,
     required this.dataPersistence,
@@ -13,16 +15,25 @@ class App extends StatelessWidget {
   final DataPersistence dataPersistence;
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  late final GoRouter _router;
+
+  @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
         //ChangeNotifierProvider(create: (_) => UiProvider()),
-        RepositoryProvider.value(value: dataPersistence),
+        RepositoryProvider.value(value: widget.dataPersistence),
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
+        routeInformationProvider: _router.routeInformationProvider,
+        routeInformationParser: _router.routeInformationParser,
+        routerDelegate: _router.routerDelegate,
         debugShowCheckedModeBanner: false,
         title: 'QR Reader',
-        initialRoute: 'home',
         theme: ThemeData(
           colorScheme: const ColorScheme.light(
             primary: Colors.deepPurple,
@@ -32,8 +43,28 @@ class App extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
-        home: const PageHome(),
       ),
+    );
+  }
+
+  GoRouter router() {
+    return GoRouter(
+      routes: <GoRoute>[
+        GoRoute(
+          path: '/',
+          name: PageHome.name,
+          builder: (context, state) => const PageHome(),
+        ),
+        GoRoute(
+          path: '/map',
+          name: PageMap.name,
+          builder: (context, state) {
+            final ScanModel scan = state.;
+
+            return PageMap(scan);
+          },
+        ),
+      ],
     );
   }
 }

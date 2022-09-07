@@ -12,6 +12,8 @@ class PageMap extends StatelessWidget {
     super.key,
   });
 
+  static const name = 'map';
+
   final ScanModel scan;
 
   @override
@@ -49,26 +51,26 @@ class _ViewMapState extends State<ViewMap> {
     return BlocBuilder<MapCubit, MapState>(
       builder: (context, state) {
         return Scaffold(
-          // appBar: AppBar(
-          //   title: Text('Mapa'),
-          //   actions: [
-          //     IconButton(
-          //       icon: Icon(Icons.location_disabled),
-          //       onPressed: () async {
-          //    final GoogleMapController controller = await _controller.future;
-          //         controller.animateCamera(
-          //           CameraUpdate.newCameraPosition(
-          //             CameraPosition(
-          //               target: scan.getLatLng(),
-          //               zoom: 17.5,
-          //               tilt: 50,
-          //             ),
-          //           ),
-          //         );
-          //       },
-          //     )
-          //   ],
-          // ),
+          appBar: AppBar(
+            title: const Text('Mapa'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.location_disabled),
+                onPressed: () async {
+                  final controller = await _controller.future;
+                  await controller.animateCamera(
+                    CameraUpdate.newCameraPosition(
+                      CameraPosition(
+                        target: scan.getLatLng(),
+                        zoom: 17.5,
+                        tilt: 50,
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
           body: Builder(
             builder: (context) {
               if (state.isLoading) {

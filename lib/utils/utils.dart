@@ -7,13 +7,14 @@ Future<void> launchURL(BuildContext context, ScanModel scan) async {
 
   if (scan.value.contains('http')) {
     // Abrir el sitio web
-    // ToDo: arreglar URL Launcher
-    if (await canLaunchUrl(_url)) {
-      await launchUrl(_url);
-    } else {
+
+    if (!await launchUrl(
+      _url,
+      mode: LaunchMode.externalApplication,
+    )) {
       throw 'Could not launch $_url';
     }
   } else {
-    print('geo');
+    await Navigator.pushNamed(context, 'map', arguments: scan);
   }
 }

@@ -10,6 +10,8 @@ import 'package:qr_reader_hive2/home/widgets/widgets.dart';
 class PageHome extends StatelessWidget {
   const PageHome({super.key});
 
+  static const name = 'home';
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
