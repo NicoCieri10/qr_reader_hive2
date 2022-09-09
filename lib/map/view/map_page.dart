@@ -61,7 +61,7 @@ class _ViewMapState extends State<ViewMap> {
                   await controller.animateCamera(
                     CameraUpdate.newCameraPosition(
                       CameraPosition(
-                        target: scan.getLatLng(),
+                        target: widget.scan.getLatLng(),
                         zoom: 17.5,
                         tilt: 50,
                       ),

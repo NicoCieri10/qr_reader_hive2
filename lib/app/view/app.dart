@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_reader_hive2/home/view/view.dart';
-import 'package:qr_reader_hive2/map/map.dart';
+import 'package:qr_reader_hive2/map/view/map_page.dart';
 
 class App extends StatefulWidget {
   const App({
@@ -20,6 +20,12 @@ class App extends StatefulWidget {
 
 class _AppState extends State<App> {
   late final GoRouter _router;
+
+  @override
+  void initState() {
+    super.initState();
+    _router = router();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,11 +62,13 @@ class _AppState extends State<App> {
           builder: (context, state) => const PageHome(),
         ),
         GoRoute(
-          path: '/map',
+          path: '/',
           name: PageMap.name,
           builder: (context, state) {
-            final ScanModel scan = state.;
-
+            final scan = (state.extra as Map?)?['scan'] as ScanModel?;
+            if (scan == null) {
+              throw ArgumentError.notNull('scan');
+            }
             return PageMap(scan);
           },
         ),
