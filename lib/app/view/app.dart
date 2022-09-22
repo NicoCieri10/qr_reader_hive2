@@ -31,7 +31,6 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        //ChangeNotifierProvider(create: (_) => UiProvider()),
         RepositoryProvider.value(value: widget.dataPersistence),
       ],
       child: MaterialApp.router(
@@ -62,7 +61,7 @@ class _AppState extends State<App> {
           builder: (context, state) => const PageHome(),
         ),
         GoRoute(
-          path: '/',
+          path: '/map',
           name: PageMap.name,
           builder: (context, state) {
             final scan = (state.extra as Map?)?['scan'] as ScanModel?;
