@@ -52,6 +52,9 @@ class QRPage extends StatelessWidget {
       itemCount: _scans.length,
       itemBuilder: (_, index) {
         final scan = _scans[index];
+        if (scan.value == '-1') {
+          context.read<ScansCubit>().deleteScan(scan);
+        }
         return Dismissible(
           key: UniqueKey(),
           background: ColoredBox(
